@@ -1,0 +1,31 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local garden = workspace:WaitForChild("Garden") -- Meyvelerin olduğu yer
+
+-- Basit GUI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 200, 0, 100)
+Frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+
+local Button = Instance.new("TextButton", Frame)
+Button.Size = UDim2.new(1, 0, 1, 0)
+Button.Text = "Meyveleri Topla"
+Button.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
+Button.TextColor3 = Color3.new(1, 1, 1)
+
+-- Meyve toplama fonksiyonu (bunu oyunun event ismine göre düzenle)
+local function collectFruit(fruit)
+    print("Toplanan meyve:", fruit.Name)
+    -- Örnek: game:GetService("ReplicatedStorage").RemoteEvents.CollectFruit:FireServer(fruit)
+end
+
+Button.MouseButton1Click:Connect(function()
+    for _, fruit in pairs(garden:GetChildren()) do
+        if fruit:IsA("Model") and fruit:FindFirstChild("Fruit") then
+            collectFruit(fruit)
+            wait(0.5)
+        end
+    end
+end)
